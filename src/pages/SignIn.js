@@ -111,7 +111,7 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         axios
-          .post("auths/google", {
+          .post("/auths/google", {
             name: result.user.displayName,
             email: result.user.email,
             imgUrl: result.user.photoURL,

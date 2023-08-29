@@ -127,7 +127,7 @@ const Subscribe = styled.button`
 
 const VideoFrame = styled.video`
   height: 520px;
-  max-width: 100%;
+  width: 100%;
   object-fit: cover;
 
   @media (max-width: 868px) {
@@ -143,7 +143,6 @@ const Video = () => {
   const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
 
   const fetchViewCount = async () => {
-    console.log(currentVideo && currentVideo._id);
     try {
       await axios.put(`/videos/view/${currentVideo && currentVideo._id}`);
       dispatch(view());
@@ -181,21 +180,27 @@ const Video = () => {
   }, [path, dispatch]);
 
   const handleLike = async () => {
-    await axios.put(`/users/like/${currentVideo && currentVideo._id}`);
-    dispatch(like(currentUser._id));
+    if(currentUser){
+      await axios.put(`/users/like/${currentVideo && currentVideo._id}`);
+      dispatch(like(currentUser._id));
+    }
   };
 
   const handleDislike = async () => {
-    await axios.put(`/users/dislike/${currentVideo && currentVideo._id}`);
-    dispatch(dislike(currentUser._id));
+    if(currentUser) {
+      await axios.put(`/users/dislike/${currentVideo && currentVideo._id}`);
+      dispatch(dislike(currentUser._id));
+    }
   };
 
   const handleSub = async () => {
-    currentUser.subscribedUsers.includes(channel._id)
-      ? await axios.put(`/users/unsub/${channel._id}`)
-      : await axios.put(`/users/sub/${channel._id}`);
+    if(currentUser){
+      currentUser.subscribedUsers.includes(channel && channel._id)
+      ? await axios.put(`/users/unsub/${channel && channel._id}`)
+      : await axios.put(`/users/sub/${channel && channel._id}`);
 
-    dispatch(subscription(channel._id));
+      dispatch(subscription(channel && channel._id));
+    }
   };
   return (
     <Container>
@@ -242,15 +247,15 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src={channel.img} />
+            <Image src={channel && channel.img} />
             <ChannelDetail>
-              <ChannelName>{channel.name} </ChannelName>
-              <ChannelCounter>{channel.subscribers}</ChannelCounter>
+              <ChannelName>{channel && channel.name} </ChannelName>
+              <ChannelCounter>{channel && channel.subscribers}</ChannelCounter>
               <Description>{currentVideo && currentVideo.desc} </Description>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe onClick={handleSub}>
-            {currentUser && currentUser.subscribedUsers?.includes(channel._id)
+            {currentUser && channel && currentUser.subscribedUsers?.includes(channel._id)
               ? "SUBSCRIBED"
               : "SUBSCRIBE"}
           </Subscribe>

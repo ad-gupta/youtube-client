@@ -44,7 +44,7 @@ export const videoSlice = createSlice({
       }
     },
     view: (state) => {
-      state.currentVideo.likes += 1;
+      state.currentVideo.views += 1;
     },
   },
 });

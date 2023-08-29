@@ -141,7 +141,7 @@ const Navbar = ({menuVisible, setMenuVisible}) => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("/api/auths/logout");
+      await axios.get("/auths/logout");
       dispatch(logout());
     } catch (err) {
       console.log(err);
