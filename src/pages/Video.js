@@ -144,7 +144,7 @@ const Video = () => {
 
   const fetchViewCount = async () => {
     try {
-      await axios.put(`/videos/view/${currentVideo && currentVideo._id}`);
+      await axios.put(`https://shortvideo.onrender.com/api/videos/view/${currentVideo && currentVideo._id}`);
       dispatch(view());
     } catch (error) {
       fetchFailure();
@@ -165,10 +165,10 @@ const Video = () => {
     const fetchData = async () => {
       try {
         const videoRes = await axios.get(
-          `/videos/find/${path}`
+          `https://shortvideo.onrender.com/api/videos/find/${path}`
         );
         const channelRes = await axios.get(
-          `/users/find/${videoRes.data.userId}`
+          `https://shortvideo.onrender.com/api/users/find/${videoRes.data.userId}`
         );
         setChannel(channelRes.data);
         dispatch(fetchSuccess(videoRes.data));
@@ -181,14 +181,18 @@ const Video = () => {
 
   const handleLike = async () => {
     if(currentUser){
-      await axios.put(`/users/like/${currentVideo && currentVideo._id}`);
+      await axios.put(`https://shortvideo.onrender.com/api/users/like/${currentVideo && currentVideo._id}`,null, {
+        withCredentials: true
+      });
       dispatch(like(currentUser._id));
     }
   };
 
   const handleDislike = async () => {
     if(currentUser) {
-      await axios.put(`/users/dislike/${currentVideo && currentVideo._id}`);
+      await axios.put(`https://shortvideo.onrender.com/api/users/dislike/${currentVideo && currentVideo._id}`,null, {
+        withCredentials: true
+      });
       dispatch(dislike(currentUser._id));
     }
   };
@@ -196,8 +200,12 @@ const Video = () => {
   const handleSub = async () => {
     if(currentUser){
       currentUser.subscribedUsers.includes(channel && channel._id)
-      ? await axios.put(`/users/unsub/${channel && channel._id}`)
-      : await axios.put(`/users/sub/${channel && channel._id}`);
+      ? await axios.put(`https://shortvideo.onrender.com/api/users/unsub/${channel && channel._id}`, null, {
+        withCredentials: true
+      })
+      : await axios.put(`https://shortvideo.onrender.com/api/users/sub/${channel && channel._id}`,null, {
+        withCredentials: true
+      });
 
       dispatch(subscription(channel && channel._id));
     }

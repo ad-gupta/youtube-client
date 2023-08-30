@@ -81,7 +81,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const response = await axios.post("/auths/signin", { email, password });
+      const response = await axios.post("https://shortvideo.onrender.com/api/auths/signin", { email, password });
       dispatch(loginSuccess(response.data));
       navigate("/");
     } catch (err) {
@@ -93,7 +93,7 @@ const SignIn = () => {
     console.log(name, email, password);
     dispatch(loginStart());
     try {
-      const response = await axios.post("/auths/signup", {
+      const response = await axios.post("https://shortvideo.onrender.com/api/auths/signup", {
         name,
         email,
         password,
@@ -111,7 +111,7 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         axios
-          .post("/auths/google", {
+          .post("https://shortvideo.onrender.com/api/auths/google", {
             name: result.user.displayName,
             email: result.user.email,
             imgUrl: result.user.photoURL,

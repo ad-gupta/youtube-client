@@ -10,6 +10,9 @@ import Video from "./pages/Video";
 import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
 import Search from "./pages/Search";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const Container = styled.div`
   display: flex;

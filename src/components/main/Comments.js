@@ -48,7 +48,7 @@ const Comments = ({videoId}) => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`/comments/${videoId}`);
+        const res = await axios.get(`https://shortvideo.onrender.com/api/comments/${videoId}`);
         setComments(res.data);
       } catch (err) {}
     };
@@ -57,7 +57,7 @@ const Comments = ({videoId}) => {
 
   //TODO: ADD NEW COMMENT FUNCTIONALITY
   const addComment = async () => {
-    await axios.post(`/comments`, {
+    await axios.post(`https://shortvideo.onrender.com/api/comments`, {
       desc: comment,
       videoId: currentVideo._id
     })

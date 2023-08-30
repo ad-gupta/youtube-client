@@ -141,7 +141,7 @@ const Navbar = ({menuVisible, setMenuVisible}) => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("/auths/logout");
+      await axios.get("https://shortvideo.onrender.com/api/auths/logout");
       dispatch(logout());
     } catch (err) {
       console.log(err);

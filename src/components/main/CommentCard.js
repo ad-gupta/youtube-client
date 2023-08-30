@@ -41,7 +41,7 @@ const CommentCard = ({ comment }) => {
 
   useEffect(() => {
     const fetchComment = async () => {
-      const res = await axios.get(`/users/find/${comment.userId}`);
+      const res = await axios.get(`https://shortvideo.onrender.com/api/users/find/${comment.userId}`);
       setChannel(res.data)
     };
     fetchComment();
